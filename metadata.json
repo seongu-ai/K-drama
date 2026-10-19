@@ -1,0 +1,6 @@
+{
+  "name": "K-Drama 15s Video Script Studio",
+  "description": "Short-form video scriptwriter and interactive previewer for Korean culture and language learning.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
