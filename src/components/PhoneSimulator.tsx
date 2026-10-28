@@ -51,9 +51,6 @@ export const PhoneSimulator: React.FC<PhoneSimulatorProps> = ({
   );
   const currentBeat = beats[currentBeatIndex] || beats[0];
 
-  const currentManualScene =
-    BACKGROUND_SCENES.find((s) => s.id === activeSceneId) || BACKGROUND_SCENES[0];
-
   // Stop playback cleanly
   const stopPlayback = () => {
     setIsPlaying(false);
@@ -191,14 +188,14 @@ export const PhoneSimulator: React.FC<PhoneSimulatorProps> = ({
   const getFontSizeClass = () => {
     switch (subtitleStyle.fontSize) {
       case 'sm':
-        return 'text-sm sm:text-base leading-snug';
+        return 'text-xs sm:text-sm';
       case 'lg':
-        return 'text-lg sm:text-xl font-extrabold leading-tight';
+        return 'text-base sm:text-lg';
       case 'xl':
-        return 'text-xl sm:text-2xl font-black leading-tight';
+        return 'text-lg sm:text-xl';
       case 'base':
       default:
-        return 'text-base sm:text-lg font-bold leading-snug';
+        return 'text-sm sm:text-base';
     }
   };
 
@@ -330,52 +327,8 @@ export const PhoneSimulator: React.FC<PhoneSimulatorProps> = ({
             );
           })}
 
-          {/* Gradients for subtitle & UI legibility */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/50 pointer-events-none z-15" />
-
-          {/* Top Info Bar inside video */}
-          <div className="absolute top-10 left-4 right-4 flex items-center justify-between text-xs text-white/90 z-25">
-            <div className="flex items-center gap-1.5">
-              <span className="font-semibold text-rose-400">#KCulture</span>
-              <span className="text-white/60">·</span>
-              <span className="text-[11px] text-white/80">
-                {autoSwitchScenes
-                  ? `Scene ${currentBeatIndex + 1}/3`
-                  : currentManualScene.name}
-              </span>
-            </div>
-            <div className="flex items-center gap-1.5 font-mono text-[11px] bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-full text-white/90">
-              <span className="text-rose-400 font-bold">{currentTime.toFixed(1)}s</span>
-              <span className="text-white/40">/</span>
-              <span>15.0s</span>
-            </div>
-          </div>
-
-          {/* Active Beat Timeline Strip (0-5s / 5-10s / 10-15s) with live image indicator */}
-          <div className="absolute top-20 left-4 right-4 z-25">
-            <div className="grid grid-cols-3 gap-1.5">
-              {beats.map((b, idx) => {
-                const isActive = idx === currentBeatIndex;
-                const isPassed = currentTime >= (idx + 1) * 5;
-                return (
-                  <button
-                    key={b.id}
-                    onClick={() => jumpToBeat(idx)}
-                    className={`h-7 px-1.5 rounded-md text-[11px] font-semibold transition-all flex items-center justify-between cursor-pointer ${
-                      isActive
-                        ? 'bg-rose-500 text-white shadow-lg shadow-rose-500/30 ring-1 ring-white/50'
-                        : isPassed
-                        ? 'bg-white/30 text-white/90 hover:bg-white/40'
-                        : 'bg-black/50 text-white/60 hover:bg-black/70'
-                    }`}
-                  >
-                    <span>{b.timeRange}</span>
-                    <span className="text-[9px] opacity-80">Img {idx + 1}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+          {/* Gradients for subtitle & UI legibility (leaving top area clean and unobstructed) */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none z-15" />
 
           {/* Center Play Overlay Trigger when paused */}
           {!isPlaying && (
@@ -390,64 +343,104 @@ export const PhoneSimulator: React.FC<PhoneSimulatorProps> = ({
             </button>
           )}
 
-          {/* Right Floating Social Engagement Column (TikTok/Reels style) */}
-          <div className="absolute right-3 bottom-24 flex flex-col items-center gap-4 z-25">
+          {/* Right Floating Social Engagement Column (TikTok/Reels style) positioned safely above subtitles */}
+          <div className="absolute right-2.5 bottom-32 flex flex-col items-center gap-3.5 z-25">
             <button
               onClick={() => setIsLiked(!isLiked)}
               className="flex flex-col items-center gap-1 group cursor-pointer"
               aria-label="Like video"
             >
               <div
-                className={`w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md transition-all ${
+                className={`w-9 h-9 rounded-full flex items-center justify-center backdrop-blur-md transition-all ${
                   isLiked
                     ? 'bg-rose-600 text-white'
-                    : 'bg-black/40 text-white group-hover:bg-black/60'
+                    : 'bg-black/50 text-white group-hover:bg-black/70'
                 }`}
               >
                 <Heart
-                  className={`w-5 h-5 ${isLiked ? 'fill-current' : ''}`}
+                  className={`w-4.5 h-4.5 ${isLiked ? 'fill-current' : ''}`}
                 />
               </div>
               <span className="text-[10px] font-medium text-white/90">24.5k</span>
             </button>
 
             <div className="flex flex-col items-center gap-1">
-              <div className="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white">
-                <MessageCircle className="w-5 h-5" />
+              <div className="w-9 h-9 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white">
+                <MessageCircle className="w-4.5 h-4.5" />
               </div>
               <span className="text-[10px] font-medium text-white/90">842</span>
             </div>
 
             <div className="flex flex-col items-center gap-1">
-              <div className="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white">
-                <Share2 className="w-5 h-5" />
+              <div className="w-9 h-9 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white">
+                <Share2 className="w-4.5 h-4.5" />
               </div>
               <span className="text-[10px] font-medium text-white/90">Share</span>
             </div>
           </div>
 
-          {/* Live Subtitle Card Overlay (Max 2 lines) */}
-          <div
-            className={`absolute left-4 right-14 z-25 text-center transition-all duration-300 ${
-              subtitleStyle.position === 'middle' ? 'bottom-56' : 'bottom-20'
-            }`}
-          >
-            <div
-              className={`inline-block max-w-full text-stroke-subtitle tracking-tight ${getSubtitleThemeClass()} ${getFontSizeClass()}`}
-            >
-              <p className="line-clamp-1">{currentBeat.subtitleLines[0]}</p>
-              {currentBeat.subtitleLines[1] && (
-                <p className="line-clamp-1 mt-0.5">{currentBeat.subtitleLines[1]}</p>
-              )}
-            </div>
+          {/* Live Subtitle Card Overlay (All lines 100% visible, synchronized to voice narration) */}
+          {(() => {
+            // In a 5-second beat: line 1 is spoken during 0.0s - 2.4s, line 2 is spoken during 2.4s - 5.0s
+            const beatElapsed = currentTime - currentBeatIndex * 5;
+            const isFirstLineActive = beatElapsed < 2.4;
+            const line1 = currentBeat.subtitleLines[0];
+            const line2 = currentBeat.subtitleLines[1];
 
-            {/* Quiet scene & beat helper */}
-            <p className="text-[10px] text-white/80 mt-1.5 font-medium tracking-wide">
-              {sceneImages[currentBeatIndex]?.name} · {currentBeat.timeRange}
-            </p>
-          </div>
+            const getHighlightClass = (isActive: boolean) => {
+              if (!isActive || !isPlaying) {
+                return 'text-white/80 font-medium';
+              }
+              switch (subtitleStyle.theme) {
+                case 'yellow':
+                  return 'text-amber-300 font-extrabold drop-shadow-[0_2px_12px_rgba(251,191,36,0.95)]';
+                case 'cyan':
+                  return 'text-cyan-300 font-extrabold drop-shadow-[0_2px_12px_rgba(103,232,249,0.95)]';
+                case 'white':
+                case 'black-box':
+                default:
+                  return 'text-white font-extrabold drop-shadow-[0_2px_14px_rgba(255,255,255,0.95)]';
+              }
+            };
 
-          {/* Bottom Progress Bar (0 to 15s) with 5s beat markers */}
+            return (
+              <div
+                className={`absolute left-3 right-3 z-25 text-center transition-all duration-300 pointer-events-none ${
+                  subtitleStyle.position === 'middle' ? 'bottom-52' : 'bottom-6'
+                }`}
+              >
+                <div
+                  className={`inline-block w-full max-w-[295px] px-3.5 py-2.5 rounded-2xl transition-all duration-200 pointer-events-auto ${
+                    subtitleStyle.theme === 'black-box'
+                      ? 'bg-black/90 backdrop-blur-md shadow-2xl border border-white/20'
+                      : 'bg-black/70 backdrop-blur-sm shadow-xl border border-white/10'
+                  }`}
+                >
+                  {/* Line 1 - Full text visible with no truncation */}
+                  <p
+                    className={`leading-snug break-words transition-colors duration-200 ${getFontSizeClass()} ${getHighlightClass(
+                      isFirstLineActive
+                    )}`}
+                  >
+                    {line1}
+                  </p>
+
+                  {/* Line 2 - Full text visible with no truncation */}
+                  {line2 && (
+                    <p
+                      className={`mt-1.5 leading-snug break-words transition-colors duration-200 ${getFontSizeClass()} ${getHighlightClass(
+                        !isFirstLineActive
+                      )}`}
+                    >
+                      {line2}
+                    </p>
+                  )}
+                </div>
+              </div>
+            );
+          })()}
+
+          {/* Bottom Progress Bar (0 to 15s) */}
           <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-white/20 z-30 cursor-pointer">
             <div
               className="h-full bg-rose-500 transition-all duration-100 relative"
@@ -460,7 +453,36 @@ export const PhoneSimulator: React.FC<PhoneSimulatorProps> = ({
       </div>
 
       {/* Primary Video Controls Bar */}
-      <div className="w-full max-w-[340px] mt-4 flex flex-col gap-3">
+      <div className="w-full max-w-[340px] mt-4 flex flex-col gap-2.5">
+        {/* Timeline & Beat Jump Bar (Positioned outside the video screen to keep phone clear) */}
+        <div className="flex items-center justify-between px-3 py-2 bg-slate-900 rounded-xl text-white shadow-xs">
+          <div className="flex items-center gap-1.5 font-mono text-[12px]">
+            <span className="font-bold text-rose-400">{currentTime.toFixed(1)}s</span>
+            <span className="text-slate-500">/</span>
+            <span className="text-slate-400">15.0s</span>
+          </div>
+
+          <div className="flex items-center gap-1">
+            {beats.map((b, idx) => {
+              const isActive = idx === currentBeatIndex;
+              return (
+                <button
+                  key={b.id}
+                  onClick={() => jumpToBeat(idx)}
+                  className={`px-2 py-1 rounded-md text-[11px] font-semibold transition-all cursor-pointer ${
+                    isActive
+                      ? 'bg-rose-600 text-white shadow-xs'
+                      : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white'
+                  }`}
+                  title={`Jump to ${b.timeRange}`}
+                >
+                  {b.timeRange}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Main Playback Bar */}
         <div className="flex items-center justify-between gap-2 p-1.5 bg-slate-900 rounded-xl text-white">
           <button
