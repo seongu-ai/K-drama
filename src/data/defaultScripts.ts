@@ -1,5 +1,21 @@
 import { ScriptPreset, FrenchKoreanTip } from '../types';
 
+import reply1988Img from '../assets/images/kdrama_reply_1988_1792393777516.jpg';
+import hospitalPlaylistImg from '../assets/images/kdrama_hospital_playlist_1792393777759.jpg';
+import attorneyWooImg from '../assets/images/kdrama_attorney_woo_1792393778107.jpg';
+import seoulNightImg from '../assets/images/kdrama_scene_seoul_night_1792390410256.jpg';
+import cafeStudyImg from '../assets/images/kdrama_scene_cafe_study_1792390411301.jpg';
+import hanRiverImg from '../assets/images/kdrama_scene_han_river_1792390410268.jpg';
+
+export const DRAMA_ASSETS = {
+  reply1988: reply1988Img,
+  hospitalPlaylist: hospitalPlaylistImg,
+  attorneyWoo: attorneyWooImg,
+  seoulNight: seoulNightImg,
+  cafeStudy: cafeStudyImg,
+  hanRiver: hanRiverImg,
+};
+
 export const SCRIPT_PRESETS: ScriptPreset[] = [
   {
     id: 'user-exact',
@@ -18,7 +34,7 @@ export const SCRIPT_PRESETS: ScriptPreset[] = [
         ],
         learningTip: 'Sets the hook with the legendary Ssangmun-dong retro drama Reply 1988.',
         frenchContext: 'Explication immédiate de l’engouement planétaire pour les séries coréennes.',
-        imageSrc: '/src/assets/images/kdrama_reply_1988_1792393777516.jpg',
+        imageSrc: DRAMA_ASSETS.reply1988,
         sceneName: '응답하라 1988 (Reply 1988)',
       },
       {
@@ -33,7 +49,7 @@ export const SCRIPT_PRESETS: ScriptPreset[] = [
         ],
         learningTip: 'Discover natural conversational banter and warm daily Korean life through Hospital Playlist.',
         frenchContext: 'Découverte naturelle du quotidien coréen et de la culture branchée.',
-        imageSrc: '/src/assets/images/kdrama_hospital_playlist_1792393777759.jpg',
+        imageSrc: DRAMA_ASSETS.hospitalPlaylist,
         sceneName: '슬기로운 의사생활 (Hospital Playlist)',
       },
       {
@@ -48,7 +64,7 @@ export const SCRIPT_PRESETS: ScriptPreset[] = [
         ],
         learningTip: 'Practice iconic lines and rapid fluency with Extraordinary Attorney Woo.',
         frenchContext: 'L’imitation des répliques pour faire décoller son niveau de coréen rapidement.',
-        imageSrc: '/src/assets/images/kdrama_attorney_woo_1792393778107.jpg',
+        imageSrc: DRAMA_ASSETS.attorneyWoo,
         sceneName: '이상한 변호사 우영우 (Attorney Woo)',
       },
     ],
@@ -70,7 +86,7 @@ export const SCRIPT_PRESETS: ScriptPreset[] = [
         ],
         learningTip: 'Defines K-dramas clearly and uses the contraction "they\'re" with an engaging hook.',
         frenchContext: 'Explication immédiate : les séries coréennes captivantes que tout le monde regarde.',
-        imageSrc: '/src/assets/images/kdrama_reply_1988_1792393777516.jpg',
+        imageSrc: DRAMA_ASSETS.reply1988,
         sceneName: '응답하라 1988 (Reply 1988)',
       },
       {
@@ -85,7 +101,7 @@ export const SCRIPT_PRESETS: ScriptPreset[] = [
         ],
         learningTip: 'Preserves your exact ideas (everyday life & trendy culture) within 11 words.',
         frenchContext: 'Immersion dans la vie quotidienne à Séoul et la culture pop sans effort académique.',
-        imageSrc: '/src/assets/images/kdrama_hospital_playlist_1792393777759.jpg',
+        imageSrc: DRAMA_ASSETS.hospitalPlaylist,
         sceneName: '슬기로운 의사생활 (Hospital Playlist)',
       },
       {
@@ -100,7 +116,7 @@ export const SCRIPT_PRESETS: ScriptPreset[] = [
         ],
         learningTip: 'Converts formal grammar into direct spoken English with contraction "you\'ll" (10 words).',
         frenchContext: 'Conseil pratique : répéter les répliques cultes pour progresser à toute vitesse.',
-        imageSrc: '/src/assets/images/kdrama_attorney_woo_1792393778107.jpg',
+        imageSrc: DRAMA_ASSETS.attorneyWoo,
         sceneName: '이상한 변호사 우영우 (Attorney Woo)',
       },
     ],
@@ -122,8 +138,8 @@ export const SCRIPT_PRESETS: ScriptPreset[] = [
         ],
         learningTip: 'Punchy opener with contractions "They\'re" and "that\'ll" (11 words).',
         frenchContext: 'Ton décontracté entre potes pour lui donner envie de binge-watcher.',
-        imageSrc: '/src/assets/images/kdrama_scene_seoul_night_1792390410256.jpg',
-        sceneName: 'Seoul Rain Romance',
+        imageSrc: DRAMA_ASSETS.reply1988,
+        sceneName: '응답하라 1988 (Reply 1988)',
       },
       {
         id: 'beat-2',
@@ -137,8 +153,8 @@ export const SCRIPT_PRESETS: ScriptPreset[] = [
         ],
         learningTip: 'Relatable lifestyle and cultural hooks for a young guy learning the language (10 words).',
         frenchContext: 'Vocabulaire de drague, expressions entre amis et ambiance urbaine.',
-        imageSrc: '/src/assets/images/kdrama_scene_cafe_study_1792390411301.jpg',
-        sceneName: 'Yeonnam Cafe & Study',
+        imageSrc: DRAMA_ASSETS.hospitalPlaylist,
+        sceneName: '슬기로운 의사생활 (Hospital Playlist)',
       },
       {
         id: 'beat-3',
@@ -152,8 +168,8 @@ export const SCRIPT_PRESETS: ScriptPreset[] = [
         ],
         learningTip: 'Shadowing technique: repeating actors out loud for rapid pronunciation gains (10 words).',
         frenchContext: 'La technique du « shadowing » pour acquérir l’accent coréen rapidement.',
-        imageSrc: '/src/assets/images/kdrama_scene_han_river_1792390410268.jpg',
-        sceneName: 'Han River Sunset Bridge',
+        imageSrc: DRAMA_ASSETS.attorneyWoo,
+        sceneName: '이상한 변호사 우영우 (Attorney Woo)',
       },
     ],
   },
@@ -256,19 +272,19 @@ export const BACKGROUND_SCENES = [
     id: 'reply-1988',
     name: '응답하라 1988',
     description: '쌍문동 골목길 따뜻한 가족 & 청춘 이야기',
-    imageSrc: '/src/assets/images/kdrama_reply_1988_1792393777516.jpg',
+    imageSrc: DRAMA_ASSETS.reply1988,
   },
   {
     id: 'hospital-playlist',
     name: '슬기로운 의사생활',
     description: '율제병원 99즈 의사들의 유쾌한 일상과 밴드',
-    imageSrc: '/src/assets/images/kdrama_hospital_playlist_1792393777759.jpg',
+    imageSrc: DRAMA_ASSETS.hospitalPlaylist,
   },
   {
     id: 'attorney-woo',
     name: '이상한 변호사 우영우',
     description: '고래와 함께 세상을 헤엄치는 천재 변호사 우영우',
-    imageSrc: '/src/assets/images/kdrama_attorney_woo_1792393778107.jpg',
+    imageSrc: DRAMA_ASSETS.attorneyWoo,
   },
 ];
 

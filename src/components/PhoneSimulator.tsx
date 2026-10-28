@@ -224,6 +224,30 @@ export const PhoneSimulator: React.FC<PhoneSimulatorProps> = ({
     },
   ];
 
+  const [failedImages, setFailedImages] = useState<Record<number, boolean>>({});
+
+  // Backup public URLs in case of CDN or static hosting asset path differences
+  const backupPublicUrls: Record<number, string> = {
+    0: '/images/kdrama_reply_1988_1792393777516.jpg',
+    1: '/images/kdrama_hospital_playlist_1792393777759.jpg',
+    2: '/images/kdrama_attorney_woo_1792393778107.jpg',
+  };
+
+  // Preload poster images in the browser cache on mount
+  useEffect(() => {
+    sceneImages.forEach((scene, idx) => {
+      if (scene.src) {
+        const img = new Image();
+        img.src = scene.src;
+      }
+      const backup = backupPublicUrls[idx];
+      if (backup) {
+        const bImg = new Image();
+        bImg.src = backup;
+      }
+    });
+  }, []);
+
   return (
     <div className="flex flex-col items-center">
       {/* Hidden audio element for user recording */}
@@ -244,23 +268,65 @@ export const PhoneSimulator: React.FC<PhoneSimulatorProps> = ({
         </div>
 
         {/* Video Screen Content */}
-        <div className="relative w-full h-full rounded-[32px] overflow-hidden bg-slate-900 select-none">
-          {/* Automatic 5-Second Cross-fading K-Drama Scene Images */}
+        <div className="relative w-full h-full rounded-[32px] overflow-hidden bg-slate-950 select-none">
+          {/* Automatic 5-Second Cross-fading K-Drama Scene Images with Fallbacks */}
           {sceneImages.map((scene, idx) => {
             const isVisible = autoSwitchScenes
               ? currentBeatIndex === idx
               : activeSceneId === BACKGROUND_SCENES[idx]?.id;
 
+            const imageSrc = failedImages[idx]
+              ? backupPublicUrls[idx]
+              : (scene.src || backupPublicUrls[idx]);
+
             return (
-              <img
-                key={scene.src}
-                src={scene.src}
-                alt={scene.name}
-                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out brightness-95 contrast-105 ${
+              <div
+                key={`scene-layer-${idx}`}
+                className={`absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out ${
                   isVisible ? 'opacity-100 z-10' : 'opacity-0 z-0'
                 }`}
-                referrerPolicy="no-referrer"
-              />
+              >
+                {/* Visual Fallback Container with Drama Color Gradients (Prevents Black Screen) */}
+                <div
+                  className={`absolute inset-0 w-full h-full flex flex-col items-center justify-center p-6 text-center select-none ${
+                    idx === 0
+                      ? 'bg-gradient-to-b from-amber-950 via-stone-900 to-amber-900'
+                      : idx === 1
+                      ? 'bg-gradient-to-b from-sky-950 via-slate-900 to-teal-950'
+                      : 'bg-gradient-to-b from-blue-950 via-indigo-950 to-slate-950'
+                  }`}
+                >
+                  <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-3xl mb-3 shadow-inner">
+                    {idx === 0 ? '📻' : idx === 1 ? '🩺' : '🐳'}
+                  </div>
+                  <h4 className="text-lg font-bold text-white tracking-tight">
+                    {scene.name}
+                  </h4>
+                  <p className="text-xs text-white/70 mt-1 max-w-[200px]">
+                    {idx === 0
+                      ? '쌍문동 레트로 골목길 가족 & 청춘 이야기'
+                      : idx === 1
+                      ? '평범한 우리들의 조금 특별한 매일'
+                      : '세상의 모든 편견을 깨는 천재 변호사'}
+                  </p>
+                </div>
+
+                {/* Primary Drama Poster Image */}
+                <img
+                  src={imageSrc}
+                  alt={scene.name}
+                  onError={() => {
+                    if (!failedImages[idx]) {
+                      setFailedImages((prev) => ({ ...prev, [idx]: true }));
+                    }
+                  }}
+                  className={`absolute inset-0 w-full h-full object-cover brightness-95 contrast-105 transition-transform duration-[4000ms] ease-out ${
+                    isPlaying && isVisible ? 'scale-105' : 'scale-100'
+                  }`}
+                  referrerPolicy="no-referrer"
+                  loading="eager"
+                />
+              </div>
             );
           })}
 
