@@ -1,80 +1,72 @@
-# Direct Implementation of User's Script into 15-Second Video Production
+# Integration of 3 Iconic K-Drama Posters into 15-Second Video Backgrounds
 
-This update directly configures the 15-second video simulator, subtitles, and narration engine to use your exact script with 5-second automatic scene transitions and natural male voice synthesis.
+Update the video simulator to feature the 3 iconic K-drama series provided by the user (*Reply 1988*, *Hospital Playlist*, and *Extraordinary Attorney Woo*), automatically crossfading every 5 seconds to match each narrative beat.
 
 ## User Review & Critical Decisions
 
 > [!IMPORTANT]
-> The video will be set up with your exact script structure:
+> The 3 uploaded drama visuals will be mapped to the 3 video beats as follows:
 
-1. **0–5s Beat (Hook & Fascination)**:
-   - **Narration**: *"K-dramas have captivated the whole world—they are incredibly fun and fascinating!"* (completed `whole-` into `whole world`)
-   - **Subtitle Card 1 (2 lines)**:
-     - Line 1: `K-dramas have captivated the whole world—`
-     - Line 2: `they are incredibly fun and fascinating!`
-   - **Visual Scene**: Scene 1 (Seoul Rain Romance)
-2. **5–10s Beat (Everyday Life & Trendy Culture)**:
+1. **Beat 1 (0–5s) — 《응답하라 1988》 (*Reply 1988*)**:
+   - **Narration**: *"K-dramas have captivated the whole world—they are incredibly fun and fascinating!"*
+   - **Background Visual**: The beloved Ssangmun-dong neighborhood alley portrait featuring the warm retro community and youth friendships.
+   - **Scene Title Badge**: `01. 응답하라 1988 (Reply 1988)`
+2. **Beat 2 (5–10s) — 《슬기로운 의사생활》 (*Hospital Playlist*)**:
    - **Narration**: *"You can easily and naturally learn about everyday Korean life and its trendy culture."*
-   - **Subtitle Card 2 (2 lines)**:
-     - Line 1: `You can easily and naturally learn about`
-     - Line 2: `everyday Korean life and its trendy culture.`
-   - **Visual Scene**: Scene 2 (Yeonnam Cafe & Hangul Study)
-3. **10–15s Beat (Real Expressions & Rapid Improvement)**:
+   - **Background Visual**: The 5 doctor friends (Mido & Parasol) laughing together with coffee in front of the medical center.
+   - **Scene Title Badge**: `02. 슬기로운 의사생활 (Hospital Playlist)`
+3. **Beat 3 (10–15s) — 《이상한 변호사 우영우》 (*Extraordinary Attorney Woo*)**:
    - **Narration**: *"By following the real expressions used in the shows, your Korean skills will improve rapidly."*
-   - **Subtitle Card 3 (2 lines)**:
-     - Line 1: `By following the real expressions used in the shows,`
-     - Line 2: `your Korean skills will improve rapidly.`
-   - **Visual Scene**: Scene 3 (Han River Sunset Skyline)
+   - **Background Visual**: Attorney Woo Young-woo at her legal desk surrounded by swimming blue whales.
+   - **Scene Title Badge**: `03. 이상한 변호사 우영우 (Attorney Woo)`
 
 ---
 
 ## 1. Overview & Core Concept
 
-- **What It Delivers**: A complete, synchronized 15-second social video production driven by your exact script lines.
-- **Audio Delivery**: Warm conversational male voice reading each beat at natural speed, synchronized to the 5.0-second intervals.
-- **Visuals**: Seamless 5-second crossfades between the 3 cinematic K-drama scenes matching each phase of your story.
-- **Subtitles**: Clear, high-contrast overlay formatted strictly into 2 lines per card for mobile social feeds (TikTok / Reels / Shorts).
+- **What It Delivers**: Transforms the generic background scenes into real, iconic K-drama posters matching the exact 3 dramas provided by the user.
+- **Cinematic Pacing**: Every 5.0 seconds ($0\text{s} \to 5\text{s} \to 10\text{s}$), the 9:16 phone simulator smoothly dissolves to the next drama poster in sync with the narration and subtitles.
+- **Visual Presentation**: High-clarity 9:16 vertical poster layout with subtle ambient gradient lighting to ensure subtitle readability while highlighting the iconic actors and poster artwork.
 
 ---
 
 ## 2. User Experience & Visual Design
 
-- **Primary Preset**: Your script will be set as the default, featured script preset in the app (`"Your Original Script"`).
-- **Subtitles Display**: Optimized line breaks ensuring neither card exceeds 2 lines, styled with bold text stroke for clear legibility over video frames.
-- **Synchronized Video Playback**:
-  - `0.0s – 5.0s`: Scene 1 displays + Male voice reads Beat 1 + Subtitle Card 1 shows.
-  - `5.0s – 10.0s`: Automatically dissolves to Scene 2 + Male voice reads Beat 2 + Subtitle Card 2 shows.
-  - `10.0s – 15.0s`: Automatically dissolves to Scene 3 + Male voice reads Beat 3 + Subtitle Card 3 shows.
-- **Export Ready**: Updated 1-click `.SRT` subtitle export and plain text copy reflecting your exact lines.
+- **Posters in Video Simulator**:
+  - `0.0s – 5.0s`: Reply 1988 poster + Beat 1 subtitles + Male voice
+  - `5.0s – 10.0s`: Hospital Playlist poster + Beat 2 subtitles + Male voice
+  - `10.0s – 15.0s`: Extraordinary Attorney Woo poster + Beat 3 subtitles + Male voice
+- **Top Badge Display**: Shows the active Korean drama title alongside English romanization (e.g. `🎬 1/3: 응답하라 1988`).
+- **Manual Poster Selector**: Users can click directly on the 3 drama tabs below the player (`Reply 1988`, `Hospital Playlist`, `Attorney Woo`) to view any poster instantly or leave it on 5-second auto transition.
 
 ---
 
-## 3. Technical Implementation Details
+## 3. Technical Architecture & File Updates
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                 User Script Master Configuration            │
+│                 3 Iconic K-Drama Poster Pipeline            │
 │                                                             │
-│  [0-5s]   K-dramas have captivated the whole world...       │
-│  [5-10s]  You can easily and naturally learn about...       │
-│  [10-15s] By following the real expressions used in...      │
+│  [0-5s]   Reply 1988 (응답하라 1988) - Retro Family & Youth  │
+│  [5-10s]  Hospital Playlist (슬기로운 의사생활) - Daily Banter│
+│  [10-15s] Attorney Woo (이상한 변호사 우영우) - Iconic Lines │
 └──────────────────────────────┬──────────────────────────────┘
                                │
             ┌──────────────────┴──────────────────┐
             ▼                                     ▼
 ┌──────────────────────────────┐    ┌──────────────────────────────┐
-│  Audio Narration Engine      │    │  Visual & Subtitle Sync      │
-│  • Warm Male Voice           │    │  • 0-5s: Scene 1 + Card 1    │
-│  • Automatic pacing per beat │    │  • 5-10s: Scene 2 + Card 2   │
-│  • Speech cadence smoothing  │    │  • 10-15s: Scene 3 + Card 3  │
+│  Asset Preparation           │    │  PhoneSimulator Rendering    │
+│  • High-res 9:16 drama frames│    │  • 5-second smooth crossfade │
+│  • Blurred ambient backing   │    │  • High-contrast subtitles   │
+│  • Fallback SVG container    │    │  • Synced warm male voice    │
 └──────────────────────────────┘    └──────────────────────────────┘
 ```
 
-1. **`src/data/defaultScripts.ts`**:
-   - Add `"your-original"` as the primary default preset containing your exact 3 lines and balanced 2-line subtitle cards.
-2. **`src/App.tsx`**:
-   - Set `"your-original"` as the active initial state.
-3. **`src/components/ScriptCardsView.tsx`**:
-   - Update cards to display your exact text with word counts and 2-line subtitle preview.
-4. **`src/components/PhoneSimulator.tsx`**:
-   - Verify speech synthesis timing so all 3 sentences complete cleanly within their 5-second slots.
+1. **Asset Generation & Integration**:
+   - Generate/prepare high-fidelity 9:16 vertical assets matching the exact 3 drama posters (*Reply 1988*, *Hospital Playlist*, *Attorney Woo*).
+2. **`src/data/defaultScripts.ts`**:
+   - Update `BACKGROUND_SCENES` and `SCRIPT_PRESETS` with the 3 drama titles, poster paths, and descriptions.
+3. **`src/components/PhoneSimulator.tsx`**:
+   - Render the drama posters with full-bleed cover framing and smooth crossfade transitions at the 5-second marks.
+4. **`src/components/StudyNotesGuide.tsx`**:
+   - Add specific cultural and linguistic trivia for each of these 3 dramas (e.g. 1980s retro slang in Reply 1988, daily medical and friendly honorifics in Hospital Playlist, and iconic palindrome catchphrases in Attorney Woo).
